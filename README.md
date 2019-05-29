@@ -3,261 +3,121 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ConsoleApp14;
-using NUnit.Framework;
-
-namespace SENG8040_Assignment_Test
+namespace ConsoleApp14
 {
-
-    [TestFixture]
-    class SENG8040_Assignment1_Unittest
+    class Program
     {
-        [Test]
-        public void Getlenght_Input3_expectedLenghtEquals3()
+        public static int ValidShowmenu()
         {
-            //Arrange
-            int l = 3;
-            int w = 4;
-                Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int length = recobj.GetLength();
-            //Assert
-            Assert.AreEqual(l, length);
+            string userInput = "";
+            bool ValidMenuSelect = false;
+            while (ValidMenuSelect == false)
+            {
+                Console.WriteLine("1: Get Rectangle Length");
+                Console.WriteLine("2: Change Rectangle Length");
+                Console.WriteLine("3: Get Rectangle Width");
+                Console.WriteLine("4: Change Rectangle Width");
+                Console.WriteLine("5: Get Rectangle Perimeter");
+                Console.WriteLine("6: Get Rectangle Area");
+                Console.WriteLine("7: Exit\n");
+                Console.WriteLine("please select an option, by entering a number:\n");
+                userInput = Console.ReadLine();
+                if (userInput != "1" &&
+                   userInput != "2" &&
+                   userInput != "3" &&
+                   userInput != "4" &&
+                   userInput != "5" &&
+                   userInput != "6" &&
+                   userInput != "7")
+                {
+                    Console.WriteLine("This is not a valid menu option, please try again:\n");
+                }
+                else
+                {
+                    ValidMenuSelect = true;
+                }
+            }
+            Console.WriteLine();
+            return int.Parse(userInput);
         }
-
-        [Test]
-        public void Getlenght_Input5_expectedLenghtEquals5()
+        public static int ValidateUserInput(string rectside)
         {
-            //Arrange
-            int l = 5;
-            int w = 4;
-                Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int length = recobj.GetLength();
-            //Assert
-            Assert.AreEqual(l, length);
+            int number = 1;
+            bool isValid = false;
+            while (isValid == false)
+            {
+                Console.WriteLine($" please enter the {rectside} of the rectangle:");
+                string userInput = Console.ReadLine();
+                Console.WriteLine();
+                bool result = int.TryParse(userInput, out number);
+                if (result == false)
+                {
+                    Console.WriteLine("That is not a valid input, please try again:\n");
+                }
+                else if (number < 0)
+                {
+                    Console.WriteLine("Number cannot be less than zero, please try again:\n");
+                }
+                else
+                {
+                    isValid = true;
+                    Console.WriteLine($"The {rectside} of your rectangle is now:{number}\n");
+                }
+            }
+            return number;
         }
-        [Test]
-        public void Getlenght_Input6_expectedLenghtEquals6()
+        public static void ProcessInput(int selection, ref Rectangle r)
         {
-            //Arrange
-            int l = 6;
-            int w = 4;
-                 Rectangle recobj = new Rectangle(l, w);
+            switch (selection)
+            {
+                case 1:
+                    Console.WriteLine(">>Length of the rectangle is " + r.GetLength());
+                    Console.WriteLine();
+                    break;
+                case 2:
+                    Console.WriteLine(">>New length of the rectangle is " + r.SetLength(ValidateUserInput("length")));
+                    Console.WriteLine();
+                    break;
+                case 3:
+                    Console.WriteLine(">>Width of the rectangle is " + r.GetWidth());
+                    Console.WriteLine();
+                    break;
+                case 4:
+                    Console.WriteLine(">>New width of the rectangle is " + r.SetWidth(ValidateUserInput("width")));
+                    Console.WriteLine();
+                    break;
+                case 5:
+                    Console.WriteLine(">>Rectangle perimeter is " + r.GetPerimeter());
+                    Console.WriteLine();
+                    break;
+                case 6:
+                    Console.WriteLine(">>Area of the rectangle is " + r.GetArea());
+                    Console.WriteLine();
+                    break;
+                case 7:
+                    Environment.Exit(0);
+                    break;
+            }
 
-            //Act
-            int length = recobj.GetLength();
-            //Assert
-            Assert.AreEqual(l, length);
         }
-        [Test]
-        public void SetLength_Input8_expectedLenghtEquals8()
+        public static void Main(string[] args)
         {
-            //Arrange
-            int l = 8;
-            int w = 4;
-                  Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int length = recobj.SetLength(l);
-            //Assert
-            Assert.AreEqual(l, length);
-        }
-        [Test]
-        public void SetLength_Input9_expectedLenghtEquals9()
-        {
-            //Arrange
-            int l = 9;
-            int w = 4;
-                  Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int length = recobj.SetLength(l);
-            //Assert
-            Assert.AreEqual(l, length);
-        }
-        [Test]
-        public void SetLength_Input11_expectedLenghtEquals11()
-        {
-            //Arrange
-            int l = 11;
-            int w = 4;
-                  Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int length = recobj.SetLength(l);
-            //Assert
-            Assert.AreEqual(l, length);
-        }
-        [Test]
-        public void GetWidth_Input4_expectedWidthEquals4()
-        {
-            //Arrange
-            int l = 11;
-            int w = 4;
-            Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int width = recobj.GetWidth();
-            //Assert
-            Assert.AreEqual(w, width);
-        }
-        [Test]
-        public void GetWidth_Input5_expectedWidthEquals5()
-        {
-            //Arrange
-            int l = 11;
-            int w = 5;
-            Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int width = recobj.GetWidth();
-            //Assert
-            Assert.AreEqual(w, width);
-        }
-        [Test]
-        public void GetWidth_Input6_expectedWidthEquals6()
-        {
-            //Arrange
-            int l = 11;
-            int w = 6;
-            Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int width = recobj.GetWidth();
-            //Assert
-            Assert.AreEqual(w, width);
-        }
-        [Test]
-        public void SetWidth_Input7_expectedWidthEquals7()
-        {
-            //Arrange
-            int l = 11;
-            int w = 7;
-            Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int width = recobj.SetWidth(w);
-            //Assert
-            Assert.AreEqual(w, width);
-        }
-        [Test]
-        public void SetWidth_Input8_expectedWidthEquals8()
-        {
-            //Arrange
-            int l = 11;
-            int w = 8;
-            Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int width = recobj.SetWidth(w);
-            //Assert
-            Assert.AreEqual(w, width);
-        }
-        [Test]
-        public void SetWidth_Input9_expectedWidthEquals9()
-        {
-            //Arrange
-            int l = 11;
-            int w = 8;
-            Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int width = recobj.SetWidth(w);
-            //Assert
-            Assert.AreEqual(w, width);
-        }
-        [Test]
-        public void GetPerimeter_Input2and2_expectedPerimeterEquals8()
-        {
-            //Arrange
-            int l = 2;
-            int w = 2;
-            int expPerimeter = (l * 2) + (w * 2);
-
-            Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int actPerimeter = recobj.GetPerimeter();
-            //Assert
-            Assert.AreEqual(expPerimeter, actPerimeter);
-        }
-        [Test]
-        public void GetPerimeter_Input3and3_expectedPerimeterEquals12()
-        {
-            //Arrange
-            int l = 3;
-            int w = 3;
-            int expPerimeter = (l * 2) + (w * 2);
-
-            Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int actPerimeter = recobj.GetPerimeter();
-            //Assert
-            Assert.AreEqual(expPerimeter, actPerimeter);
-        }
-        [Test]
-        public void GetPerimeter_Input4and4_expectedPerimeterEquals16()
-        {
-            //Arrange
-            int l = 4;
-            int w = 4;
-            int expPerimeter = (l * 2) + (w * 2);
-
-            Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int actPerimeter = recobj.GetPerimeter();
-            //Assert
-            Assert.AreEqual(expPerimeter, actPerimeter);
-        }
-        [Test]
-        public void GetArea_Input2and3_expectedAreaEquals6()
-        {
-            //Arrange
-            int l = 2;
-            int w = 3;
-            int expArea = (l * w);
-
-            Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int actArea = recobj.GetArea();
-            //Assert
-            Assert.AreEqual(expArea, actArea);
-        }
-        [Test]
-        public void GetArea_Input3and4_expectedAreaEquals12()
-        {
-            //Arrange
-            int l = 3;
-            int w = 4;
-            int expArea = (l * w);
-
-            Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int actArea = recobj.GetArea();
-            //Assert
-            Assert.AreEqual(expArea, actArea);
-        }
-        [Test]
-        public void GetArea_Input4and4_expectedAreaEquals16()
-        {
-            //Arrange
-            int l = 4;
-            int w = 4;
-            int expArea = (l * w);
-
-            Rectangle recobj = new Rectangle(l, w);
-
-            //Act
-            int actArea = recobj.GetArea();
-            //Assert
-            Assert.AreEqual(expArea, actArea);
+            Rectangle r = new Rectangle();
+            r.SetWidth(ValidateUserInput("width"));
+            r.SetLength(ValidateUserInput("length"));
+            int selection = 0;
+            while (selection != 7)
+            {
+                selection = ValidShowmenu();
+                Console.WriteLine(" Option selected is  :: " + selection);
+                ProcessInput(selection, ref r);
+            }
         }
     }
 }
+
+
+
+
+
+
